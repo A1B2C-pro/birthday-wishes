@@ -1,24 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Uncle!</title>
+    <title>Happy Birthday, Madhumama!</title>
     <style>
         body {
             text-align: center;
-            background-color: #ffccff;
+            background: url('https://source.unsplash.com/1600x900/?birthday,celebration') no-repeat center center/cover;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            color: white;
         }
         h1 {
-            color: #ff0066;
+            color: #ffeb3b;
             font-size: 3em;
             animation: bounce 1s infinite alternate;
         }
         p {
             font-size: 1.5em;
-            color: #333;
+            color: #fff;
         }
         button {
             background-color: #ff0066;
@@ -42,11 +44,18 @@
             height: 100vh;
             pointer-events: none;
         }
+        .birthday-image {
+            width: 250px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
     <canvas id="confetti"></canvas>
-    <h1>🎉 Happy Birthday, Uncle! 🎂</h1>
+    <h1>🎉 Happy Birthday, Madhumama! 🎂</h1>
+    <img class="birthday-image" src="https://cdn.pixabay.com/photo/2017/04/10/11/02/birthday-2211568_1280.jpg" alt="Birthday Cake">
     <p>Wishing you a fantastic day filled with love, laughter, and all the happiness in the world! 🎁🎈</p>
     <button onclick="speakWish()">🔊 Play Birthday Wish</button>
     <audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-birthday.mp3" autoplay loop></audio>
@@ -55,7 +64,8 @@
         function speakWish() {
             let msg = new SpeechSynthesisUtterance();
             msg.text = "Happy Birthday, Uncle! Wishing you a day full of joy and happiness!";
-            msg.voice = speechSynthesis.getVoices()[0];
+            let voices = speechSynthesis.getVoices();
+            msg.voice = voices.find(voice => voice.name.includes('Female')) || voices[0];
             speechSynthesis.speak(msg);
         }
         
