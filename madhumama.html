@@ -63,7 +63,7 @@
     <script>
         function speakWish() {
             let msg = new SpeechSynthesisUtterance();
-            msg.text = "Happy Birthday, Uncle! Wishing you a day full of joy and happiness!";
+            msg.text = "Happy Birthday, mama! Wishing you a day full of joy and happiness!";
             let voices = speechSynthesis.getVoices();
             msg.voice = voices.find(voice => voice.name.includes('Female')) || voices[0];
             speechSynthesis.speak(msg);
