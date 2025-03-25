@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Uncle!</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffccff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            color: #ff0066;
+            font-size: 3em;
+            animation: bounce 1s infinite alternate;
+        }
+        p {
+            font-size: 1.5em;
+            color: #333;
+        }
+        button {
+            background-color: #ff0066;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    <h1>🎉 Happy Birthday, Uncle! 🎂</h1>
+    <p>Wishing you a fantastic day filled with love, laughter, and all the happiness in the world! 🎁🎈</p>
+    <button onclick="speakWish()">🔊 Play Birthday Wish</button>
+    <audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-birthday.mp3" autoplay loop></audio>
+
+    <script>
+        function speakWish() {
+            let msg = new SpeechSynthesisUtterance();
+            msg.text = "Happy Birthday, Uncle! Wishing you a day full of joy and happiness!";
+            msg.voice = speechSynthesis.getVoices()[0];
+            speechSynthesis.speak(msg);
+        }
+        
+        // Confetti Effect
+        const canvas = document.getElementById("confetti");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 5 + 2,
+                speedX: Math.random() * 2 - 1,
+                speedY: Math.random() * 2 + 1,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`
+            });
+        }
+        
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                if (p.y > canvas.height) p.y = 0;
+            });
+            requestAnimationFrame(animateConfetti);
+        }
+        animateConfetti();
+    </script>
+</body>
+</html>
